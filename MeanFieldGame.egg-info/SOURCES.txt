@@ -1,0 +1,10 @@
+README.md
+setup.py
+MeanFieldGame/CDC2025_vaxx.py
+MeanFieldGame/Graphon.py
+MeanFieldGame/__init__.py
+MeanFieldGame.egg-info/PKG-INFO
+MeanFieldGame.egg-info/SOURCES.txt
+MeanFieldGame.egg-info/dependency_links.txt
+MeanFieldGame.egg-info/requires.txt
+MeanFieldGame.egg-info/top_level.txt

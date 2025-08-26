@@ -1,0 +1,12 @@
+Metadata-Version: 2.1
+Name: MeanFieldGame
+Version: 0.1
+Summary: A package for mean field game analysis with graphons
+Author: Your Name
+Author-email: your.email@example.com
+Requires-Dist: numpy
+Requires-Dist: scipy
+Requires-Dist: tqdm
+Requires-Dist: pandas
+Requires-Dist: matplotlib
+Requires-Dist: seaborn
