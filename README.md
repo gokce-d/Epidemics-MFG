@@ -18,7 +18,8 @@ The code approximates the mean field limit with a finite number of blocks, focus
 
 ### Contributors
 - Gökçe Dayanıklı
-- Yichen Zhou (Spring 2025)
+- Yichen Zhou (Spring & Fall 2025)
+- Lily Weaver (Summer & Fall 2025)
 - Arseniy Titov (Spring 2025)
 
 ## Dependencies
