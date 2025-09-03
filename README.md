@@ -3,7 +3,8 @@ This repository contains Python code for simulating and solving a Stackelberg Me
 
 ## Overview
 The code implements a numerical solver for an MFG model of epidemic dynamics in a population divided into blocks (e.g., age groups, regions), using the SIR (Susceptible, Infected, Removed) or SIRD (Susceptible, Infected, Removed, Deceased) framework. Individuals control their contact rates (αₛ)to minimize personal costs (infection risk, deviation from regulator’s policy), while a regulator sets recommended contact and vaccination rates (λₛ,λᵢ,λᵣ)to influence behavior and mitigate the epidemic. A graphon models heterogeneous interactions between blocks.
-### Key Feartures
+
+### Key Features
 - Solves forward Kolmogorov-Fokker-Planck (KFP) equations for population densities (𝑝).
 - Solves backward Hamilton-Jacobi-Bellman (HJB) equations for value functions (𝑢).
 - Computes optimal controls per block:
