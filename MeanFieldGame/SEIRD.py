@@ -459,7 +459,8 @@ def simulateEQ_contact_rate(
 # ==========================
 
 
-def main():
+def test_SEIRD():
+    # Test SEIRD
     n_blocks = 1
     n_states = 5
     Nt = 200
@@ -480,22 +481,22 @@ def main():
         exposed=True,
         epsilon=1e-5,
     )
-    # setup.u_T[(n_states - 1) * n_blocks :] = 0.7  # terminal cost of death?
 
-    epi = EpidemicParams(beta=0.2, gamma=0.1, rho=0.5, chi=0.9, kappa=0.2, eta=0.1)
-    cost = CostParams(c_lambda=0.1, c_inf=0.1, c_dead=0.1, c_nu=0.1)
+    epi = EpidemicParams(beta=0.8, gamma=0.1, rho=0.1, chi=0.7, kappa=0.8, eta=0.01)
+    cost = CostParams(c_lambda=0.1, c_inf=0.3, c_dead=0.5, c_nu=0.1)
     ctrl = ControlParams(
         lambda_type=0,
         lambda_duration=None,
-        lambda_s_in=np.array([1.0]),
-        lambda_e_in=np.array([1.0]),
+        lambda_s_in=np.array([0.99]),
+        lambda_e_in=np.array([0.71]),
         lambda_i_in=np.array([1.0]),
         lambda_r_in=np.array([1.0]),
     )
 
     results = simulateEQ_contact_rate(setup, epi, cost, ctrl)
     p = results["p"].reshape(setup.n_states, setup.Nt, setup.n_blocks)
-    S, E, I, R, D = p[:, :, 0]
+    S, I, R, D, E = p[:, :, 0]  # order of states as returned is SIRDE
+    # maybe return a dict so we don't have to remember this?
 
     plt.figure(figsize=(8, 5))
     plt.plot(setup.t_grid, S, label="S")
@@ -508,8 +509,70 @@ def main():
     plt.legend()
     plt.grid(True)
     plt.tight_layout()
+    plt.savefig(
+        f"seird_test_rho{epi.rho}_kappa{epi.kappa}_eta{epi.eta}.png",
+        dpi=300,
+        bbox_inches="tight",
+    )
+    plt.show()
+
+
+def test_SIRD():
+    # Test SIRD
+    n_blocks = 1
+    n_states = 4
+    Nt = 200
+    T = 100
+    p_0 = np.array([0.99, 0.01, 0.0, 0.0])
+    t_grid = np.linspace(0, T, Nt)
+    setup = SimulationSetup(
+        n_blocks=n_blocks,
+        n_states=n_states,
+        Nt=Nt,
+        T=T,
+        t_grid=t_grid,
+        graphon=np.ones((n_blocks, n_blocks)),
+        block_dens=np.ones(n_blocks),
+        p_0=p_0,
+        u_T=np.zeros(n_states * n_blocks),
+        death=True,
+        exposed=False,
+        epsilon=1e-5,
+    )
+
+    epi = EpidemicParams(beta=0.8, gamma=0.1, rho=0.1, chi=0.7, kappa=0.8, eta=0.01)
+    cost = CostParams(c_lambda=0.1, c_inf=0.3, c_dead=0.5, c_nu=0.1)
+    ctrl = ControlParams(
+        lambda_type=0,
+        lambda_duration=None,
+        lambda_s_in=np.array([0.99]),
+        lambda_e_in=None,  # No E state
+        lambda_i_in=np.array([0.71]),
+        lambda_r_in=np.array([1.0]),
+    )
+
+    results = simulateEQ_contact_rate(setup, epi, cost, ctrl)
+    p = results["p"].reshape(setup.n_states, setup.Nt, setup.n_blocks)
+    S, I, R, D = p[:, :, 0]  # only plot SIRD
+
+    plt.figure(figsize=(8, 5))
+    plt.plot(setup.t_grid, S, label="S")
+    plt.plot(setup.t_grid, I, label="I")
+    plt.plot(setup.t_grid, R, label="R")
+    plt.plot(setup.t_grid, D, label="D")
+    plt.xlabel("Time")
+    plt.ylabel("Fraction of population")
+    plt.legend()
+    plt.grid(True)
+    plt.tight_layout()
+    plt.savefig(
+        f"seird_test_rho{epi.rho}_kappa{epi.kappa}_eta{epi.eta}.png",
+        dpi=300,
+        bbox_inches="tight",
+    )
     plt.show()
 
 
 if __name__ == "__main__":
-    main()
+    test_SIRD()
+    test_SEIRD()
