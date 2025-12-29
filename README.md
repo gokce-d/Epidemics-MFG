@@ -1,5 +1,5 @@
 # Mean Field Game for Epidemic Control
-This repository contains Python code for simulating and solving a Stackelberg Mean Field Game (MFG) model applied to epidemic control, as described in the paper "Optimal Incentives to Mitigate Epidemics: A Stackelberg Mean Field Game Approach" by Alexander Aurell, René Carmona, Gökçe Dayanıklı, and Mathieu Laurière (SIAM J. Control Optim., 2022).
+This repository contains Python package for simulating and solving a Mean Field Game (MFG) models applied to epidemic control.
 
 ## Overview
 The code implements a numerical solver for an MFG model of epidemic dynamics in a population divided into blocks (e.g., age groups, regions), using the SIR (Susceptible, Infected, Removed) or SIRD (Susceptible, Infected, Removed, Deceased) framework. Individuals control their contact rates (αₛ)to minimize personal costs (infection risk, deviation from regulator’s policy), while a regulator sets recommended contact and vaccination rates (λₛ,λᵢ,λᵣ)to influence behavior and mitigate the epidemic. A graphon models heterogeneous interactions between blocks.
